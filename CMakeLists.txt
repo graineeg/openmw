@@ -524,6 +524,11 @@ if (BUILD_OPENCS)
     add_subdirectory (extern/osgQt)
 endif()
 
+#android
+if (ANDROID)
+    add_subdirectory (android)
+endif()
+
 # Components
 add_subdirectory (components)
 

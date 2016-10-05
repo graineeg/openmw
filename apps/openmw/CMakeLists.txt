@@ -5,12 +5,6 @@ set(GAME
 
     ${CMAKE_SOURCE_DIR}/files/windows/openmw.rc
 )
-
-if (ANDROID)
-    set(GAME ${GAME} android_commandLine.cpp)
-    set(GAME ${GAME} android_main.c)
-endif()
-
 if(NOT WIN32 AND NOT ANDROID)
     set(GAME ${GAME} crashcatcher.cpp)
 endif()
@@ -150,6 +144,11 @@ if (ANDROID)
         ${OSG_PLUGINS_DIR}/libosgdb_png.a
         -Wl,--no-whole-archive
     )
+    set (JNI_ANDROID_LIBRARY
+        -Wl,--whole-archive
+        jni_android
+        -Wl,--no-whole-archive
+    )
     target_link_libraries(openmw
         EGL
         android
@@ -158,6 +157,7 @@ if (ANDROID)
         z
         ${OPENSCENEGRAPH_LIBRARIES}
         ${OSG_PLUGINS}
+        ${JNI_ANDROID_LIBRARY}
         jpeg
         gif
     	png
